@@ -1,35 +1,14 @@
 import express from "express";
-import cors from "cors";
-import mysql from 'mysql2';
-import dotenv from "dotenv";
-
-dotenv.config();
+import sequelize from "./config/db.js";
+import authRoutes from "./routes/auth.routes.js";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+app.use(express.json());
 
+// Rutas
+app.use("/api/auth", authRoutes);
 
-app.use(cors());
-app.use(morgan("dev"));
-app.use(express.json()); 
+sequelize.sync().then(() => console.log("Base de datos conectada"));
 
+app.listen(3000, () => console.log("Servidor en http://localhost:3000"));
 
-
-dotenv.config();
-
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
-});
-
-
-app.get("/", (req, res) => {
-  res.send("Backend running...");
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
