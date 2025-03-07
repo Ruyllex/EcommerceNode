@@ -7,7 +7,7 @@ const Size = require("./size.model");
 const Stock = require("./stock.model");
 const Cart = require("./cart.model");
 const Order = require("./order.model");
-const OrderDetail = require("./orderdetail.model");
+const OrderDetail = require("./orderDetail.model");
 const Payment = require("./payment.model");
 
 // Relaciones

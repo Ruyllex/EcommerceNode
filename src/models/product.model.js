@@ -9,6 +9,7 @@ const Product = sequelize.define("Product", {
   brand: { type: DataTypes.STRING },
   imageUrl: { type: DataTypes.STRING },
   categoryId: { type: DataTypes.INTEGER },
+  stock: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
 });
 
 module.exports = Product;
