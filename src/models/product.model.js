@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
+import { DataTypes } from "sequelize";
+import sequelize from "../config/db.js";
 
 const Product = sequelize.define("Product", {
   id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
@@ -12,4 +12,4 @@ const Product = sequelize.define("Product", {
   stock: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
 });
 
-module.exports = Product;
+export default Product;

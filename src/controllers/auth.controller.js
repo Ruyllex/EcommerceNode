@@ -29,7 +29,7 @@ export const login = async (req, res) => {
 
     const token = jwt.sign({ id: user.id, role: user.role }, config.secret, { expiresIn: config.expiresIn });
 
-    res.json({ message: "Login exitoso", token });
+    res.json({ message: "Login exitoso", token, user });
   } catch (error) {
     res.status(500).json({ message: "Error en el login", error });
   }

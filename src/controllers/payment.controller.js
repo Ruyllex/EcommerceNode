@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import Order from '../models/order.model.js';
+import {Order} from '../models/order.model.js';
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
