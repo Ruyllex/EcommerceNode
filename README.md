@@ -1,6 +1,6 @@
-# 🏆 Express.js API Starter
+# 🏆 Este es el Back-End de la SubCocina (Express.js API)
 
-Este es un proyecto básico de API REST con Express.js. Incluye configuración inicial, manejo de rutas, middlewares y conexión a una base de datos.
+Este es un proyecto básico de API REST con Express.js. Incluye configuración inicial, manejo de rutas, middlewares y conexión a una base de datos. Es el back end del proyecto de la subCocina en el cual se tiene un alógica de usuarios, con roles de customer y admin, cada customer puede pedir platos de una semana que se cargan al carrito y el admin luego se fija quienes pidieron que platos y los prepara para luego servirlos en la cotiniedad.
 
 ## 🔧 Tecnologías Utilizadas
 

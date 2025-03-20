@@ -1,12 +1,16 @@
 import { Router } from "express";
 import Product from "../models/product.model.js";
-import { verifyToken, isAdmin } from "../middlewares/auth.middleware.js";
+import { verifyToken, isAdmin } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const products = await Product.findAll();
-  res.json(products);
+  try {
+    const products = await Product.findAll();
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: 'Error al obtener los productos', error: error.message });
+  }
 });
 
 router.post("/", verifyToken, isAdmin, async (req, res) => {

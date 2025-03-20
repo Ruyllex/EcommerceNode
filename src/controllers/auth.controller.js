@@ -18,20 +18,32 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  const { name, password } = req.body;
+
   try {
-    const { email, password } = req.body;
+    const user = await User.findOne({ where: { name } });
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
 
-    const user = await User.findOne({ where: { email } });
-    if (!user) return res.status(400).json({ message: "Usuario no encontrado" });
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Contraseña incorrecta' });
+    }
 
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) return res.status(400).json({ message: "Contraseña incorrecta" });
+    const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    const token = jwt.sign({ id: user.id, role: user.role }, config.secret, { expiresIn: config.expiresIn });
-
-    res.json({ message: "Login exitoso", token, user });
+    res.status(200).json({
+      message: 'Login exitoso',
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        role: user.role
+      }
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error en el login", error });
+    res.status(500).json({ message: 'Error en el login', error: error.message });
   }
 };
 
